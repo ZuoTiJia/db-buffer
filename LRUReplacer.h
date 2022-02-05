@@ -7,13 +7,12 @@
 #include <unordered_map>
 #include <list>
 #include <mutex>
-#include "Replacer.h"
+#include <optional>
 #include "Type.h"
-
+using namespace std;
 
 class LRUReplacer{
 public:
-    ~LRUReplacer() = default;
     optional<FrameId> Victim();
     void Pin(FrameId frame_id);
     void Unpin(FrameId frame_id);
