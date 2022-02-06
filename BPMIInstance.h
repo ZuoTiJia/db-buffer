@@ -27,7 +27,7 @@ public:
     bool DeletePgImp(PageId page_id);
     void FlushAllPgsImp();
     Size GetPoolSize() const {
-        return pool_size_;
+        return pool_size;
     }
     int GetIO() const {
         return disk_manager_->GetIO();
@@ -39,7 +39,6 @@ private:
     optional<FrameId> AllocateFrame(PageId);
     PageId AllocatePage();
     bool DeallocatePage(PageId page_id);
-    const Size pool_size_ = pool_size;
     array<Page, pool_size> pages_;
     unordered_map<PageId, FrameId> page_table_;
     unique_ptr<Replacer> replacer_;
@@ -156,7 +155,7 @@ bool BPMIInstance<Replacer, pool_size>::FlushPgImp(PageId page_id) {
 
 template <typename Replacer, Size pool_size>
 void BPMIInstance<Replacer, pool_size>::FlushAllPgsImp() {
-    assert(page_table_.size() <= pool_size_);
+    assert(page_table_.size() <= pool_size);
     for(auto [page_id, frame_id]: page_table_) {
         const auto page = pages_[frame_id];
         if(page.IsDirty()) {
